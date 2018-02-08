@@ -1,4 +1,4 @@
-package tokenize
+package ling
 
 import (
 	"github.com/liuzl/segment"
