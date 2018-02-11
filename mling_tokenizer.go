@@ -1,18 +1,26 @@
 package ling
 
 import (
+	"github.com/liuzl/go-porterstemmer"
 	"github.com/liuzl/segment"
+	"golang.org/x/text/transform"
+	"golang.org/x/text/unicode/norm"
+	"strings"
+	"unicode"
 )
 
-type Option struct {
-}
-
 type MlingTokenizer struct {
-	option Option
+	trans transform.Transformer
+	err   error
 }
 
 func NewMlingTokenizer() *MlingTokenizer {
-	return &MlingTokenizer{}
+	tok := &MlingTokenizer{}
+	isMn := func(r rune) bool {
+		return unicode.Is(unicode.Mn, r) // Mn: nonspacing marks
+	}
+	tok.trans = transform.Chain(norm.NFD, transform.RemoveFunc(isMn), norm.NFC)
+	return tok
 }
 
 func (self *MlingTokenizer) Tokenize(text string) []*Token {
@@ -21,7 +29,15 @@ func (self *MlingTokenizer) Tokenize(text string) []*Token {
 	var pos int = 0
 	for seg.Segment() {
 		l := len(seg.Bytes())
-		token := &Token{Raw: seg.Text(), Start: pos, End: pos + l}
+		token := &Token{Text: seg.Text(), StartByte: pos, EndByte: pos + l}
+		token.Lower = strings.ToLower(token.Text)
+		res, _, err := transform.String(self.trans, token.Lower)
+		if err != nil {
+			self.err = err
+		} else {
+			token.Norm = res
+		}
+		token.Stem = porterstemmer.StemString(token.Norm)
 		pos += l
 		ret = append(ret, token)
 	}

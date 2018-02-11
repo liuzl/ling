@@ -6,3 +6,11 @@
 * [The UniMorph Project](https://unimorph.github.io/)
 
 > 词干提取（stemming）和词形还原（lemmatization）
+
+## Implementation references
+* [spaCy](https://spacy.io/) Python
+* [lingo](https://github.com/chewxy/lingo) Golang
+* 中文繁简转换
+  * [OpenCC](https://github.com/BYVoid/OpenCC)
+  * [Chinese-Character Jian<=>Fan converting library in Go](https://github.com/go-cc/cc-jianfan)
+  * [Traditional and Simplified Chinese Conversion in Go](https://github.com/siongui/gojianfan)
