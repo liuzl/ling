@@ -18,10 +18,18 @@ func Tokenize(text string) []string {
 
 func Type(text string) TokenType {
 	switch {
+	case StringIs(text, unicode.IsSpace):
+		return Space
+	case StringIs(text, unicode.IsSymbol):
+		return Symbol
 	case StringIs(text, unicode.IsNumber):
 		return Number
 	case StringIs(text, unicode.IsPunct):
 		return Punct
+	case StringIs(text, func(r rune) bool {
+		return unicode.Is(unicode.Scripts["Han"], r)
+	}):
+		return Han
 	}
 	return Word
 }

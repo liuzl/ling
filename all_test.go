@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestSegment(t *testing.T) {
+func TestAll(t *testing.T) {
 	cases := []string{
 		//Chinese
 		"目前新车的轴距还没有公布，但是长度达到了4915mm，未来定位可能是一款中级轿车，而新车重量为1890kg。作为一款新能源车型，氢燃料的使用无疑让人惊喜，而本田公布它的最大续航为750km，可以说是非常能跑。",
@@ -21,10 +21,12 @@ func TestSegment(t *testing.T) {
 		//Swedish
 		"Swedish photograper Per-Anders Jörgensen and Art Director Lotta Jörgensen are the duo behind one of the most interesting Food Magazines in the world.",
 		//English text
-		"zhanliangliu@gmail.com,zliu.org 123 is one two three",
+		"zhanliangliu@gmail.com,      \t\t\t .@#$!@  zliu.org 123 is one two three",
+		",，.。有意思quanjian",
 	}
 
 	tok := &Tokenizer{}
+	norm := &Normalizer{}
 	for _, c := range cases {
 		//ret := Tokenize(c)
 		//t.Log(c)
@@ -33,6 +35,10 @@ func TestSegment(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-		t.Logf("%s\n%+v\n", d, d.Tokens)
+		err = norm.Process(d)
+		if err != nil {
+			t.Error(err)
+		}
+		t.Logf("%s\n%+v\n\n", d, d.Tokens)
 	}
 }

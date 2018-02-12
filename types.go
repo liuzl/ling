@@ -19,10 +19,12 @@ type TokenType byte
 
 const (
 	EOF TokenType = iota
-	Word
+	Space
+	Symbol
 	Number
-	URI
 	Punct
+	Han
+	Word
 )
 
 type Token struct {
@@ -36,7 +38,7 @@ type Token struct {
 }
 
 func (t *Token) String() string {
-	return fmt.Sprintf("(%q/%v)[%d:%d]", t.Text, t.Type, t.StartByte, t.EndByte)
+	return fmt.Sprintf("(%q/%v){%+v}[%d:%d]", t.Text, t.Type, t.Annotations, t.StartByte, t.EndByte)
 }
 
 type Span struct {
