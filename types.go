@@ -3,6 +3,7 @@ package ling
 import (
 	"bytes"
 	"fmt"
+	"github.com/liuzl/franco"
 )
 
 type Document struct {
@@ -10,6 +11,17 @@ type Document struct {
 	Tokens []*Token `json:"tokens"`
 	Spans  []*Span  `json:"spans"`
 	Lang   string   `json:"lang"`
+}
+
+func NewDocument(text string) *Document {
+	d := &Document{Text: text}
+	r := franco.Detect(text)
+	if len(r) > 0 {
+		if len(r) <= 10 || r[0].Code == "eng" || r[0].Code == "rus" {
+			d.Lang = r[0].Code
+		}
+	}
+	return d
 }
 
 func (d *Document) String() string {

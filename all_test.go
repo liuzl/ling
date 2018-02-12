@@ -33,7 +33,7 @@ func TestAll(t *testing.T) {
 	for _, c := range cases {
 		//ret := Tokenize(c)
 		//t.Log(c)
-		d := &Document{Text: c}
+		d := NewDocument(c)
 		err := tok.Process(d)
 		if err != nil {
 			t.Error(err)
@@ -42,6 +42,6 @@ func TestAll(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-		t.Logf("\n%s\n%s\n%+v\n\n", d, d.Norm(), d.Tokens)
+		t.Logf("\n%s\n%s\n%s\n%+v\n\n", d.Lang, d, d.Norm(), d.Tokens)
 	}
 }
