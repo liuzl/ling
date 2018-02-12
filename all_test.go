@@ -22,7 +22,10 @@ func TestAll(t *testing.T) {
 		"Swedish photograper Per-Anders Jörgensen and Art Director Lotta Jörgensen are the duo behind one of the most interesting Food Magazines in the world.",
 		//English text
 		"zhanliangliu@gmail.com,      \t\t\t .@#$!@  zliu.org 123 is one two three",
-		",，.。有意思quanjian",
+		",，.。有意思quanjian１２３",
+		"，。！？【】（）％＃＠＆１２３４５６７８９０“”‘’''\"\"",
+		"123hj is goo. goog1e brightliang137",
+		"3.1415 -1.618 6.023e23 1e-13 1,234,234",
 	}
 
 	tok := &Tokenizer{}
@@ -39,6 +42,6 @@ func TestAll(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-		t.Logf("%s\n%+v\n\n", d, d.Tokens)
+		t.Logf("\n%s\n%s\n%+v\n\n", d, d.Norm(), d.Tokens)
 	}
 }

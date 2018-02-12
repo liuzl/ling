@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"golang.org/x/text/transform"
 	"golang.org/x/text/unicode/norm"
+	"golang.org/x/text/width"
+	"strings"
 	"unicode"
 )
 
@@ -13,6 +15,17 @@ var trans transform.Transformer = transform.Chain(
 		return unicode.Is(unicode.Mn, r)
 	}),
 	norm.NFC)
+
+var replacer *strings.Replacer = strings.NewReplacer(
+	`｡`, `.`, // half period in Chinese
+	`。`, `.`, // full period in Chinese
+	`【`, `[`,
+	`】`, `]`,
+	`“`, `"`,
+	`”`, `"`,
+	`‘`, `'`,
+	`’`, `'`,
+)
 
 type Normalizer struct {
 }
@@ -29,7 +42,8 @@ func (self *Normalizer) Process(d *Document) error {
 		if err != nil {
 			return err
 		}
-		token.Annotations["norm"] = res
+		// full to half
+		token.Annotations["norm"] = replacer.Replace(width.Narrow.String(res))
 	}
 	return nil
 }

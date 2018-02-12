@@ -1,6 +1,7 @@
 package ling
 
 import (
+	"bytes"
 	"fmt"
 )
 
@@ -13,6 +14,14 @@ type Document struct {
 
 func (d *Document) String() string {
 	return d.Text
+}
+
+func (d *Document) Norm() string {
+	var buffer bytes.Buffer
+	for _, token := range d.Tokens {
+		buffer.WriteString(token.Annotations["norm"])
+	}
+	return buffer.String()
 }
 
 type TokenType byte
