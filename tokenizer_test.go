@@ -21,13 +21,18 @@ func TestSegment(t *testing.T) {
 		//Swedish
 		"Swedish photograper Per-Anders Jörgensen and Art Director Lotta Jörgensen are the duo behind one of the most interesting Food Magazines in the world.",
 		//English text
-		"zhanliangliu@gmail.com,zliu.org",
+		"zhanliangliu@gmail.com,zliu.org 123 is one two three",
 	}
 
-	tok := NewMlingTokenizer()
+	tok := &Tokenizer{}
 	for _, c := range cases {
-		ret := tok.Tokenize(c)
-		t.Log(c)
-		t.Logf("%+v\n\n", ret)
+		//ret := Tokenize(c)
+		//t.Log(c)
+		d := &Document{Text: c}
+		err := tok.Process(d)
+		if err != nil {
+			t.Error(err)
+		}
+		t.Logf("%s\n%+v\n", d, d.Tokens)
 	}
 }

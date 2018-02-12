@@ -15,25 +15,33 @@ func (d *Document) String() string {
 	return d.Text
 }
 
+type TokenType byte
+
+const (
+	EOF TokenType = iota
+	Word
+	Number
+	URI
+	Punct
+)
+
 type Token struct {
-	Doc       *Document `json:"-"`
-	Text      string    `json:"text"`
-	StartByte int       `json:"start_byte"`
-	EndByte   int       `json:"end_byte"`
-	Lower     string    `json:"lower"`
-	Norm      string    `json:"norm"`
-	Stem      string    `json:"stem"`
+	Doc         *Document         `json:"-"`
+	Text        string            `json:"text"`
+	Type        TokenType         `json:"type"`
+	I           int               `json:"i"`
+	StartByte   int               `json:"start_byte"`
+	EndByte     int               `json:"end_byte"`
+	Annotations map[string]string `json:"annotations"`
 }
 
 func (t *Token) String() string {
-	return fmt.Sprintf("(%s/%s/%s)[%d:%d]",
-		t.Text, t.Norm, t.Stem, t.StartByte, t.EndByte)
+	return fmt.Sprintf("(%q/%v)[%d:%d]", t.Text, t.Type, t.StartByte, t.EndByte)
 }
 
 type Span struct {
-	Doc   *Document `json:"-"`
-	Start int       `json:"start"`
-	End   int       `json:"end"`
-	Label string    `json:"label"`
-	From  string    `json:"from"`
+	Doc         *Document         `json:"-"`
+	Start       int               `json:"start"`
+	End         int               `json:"end"`
+	Annotations map[string]string `json:"annotations"`
 }
