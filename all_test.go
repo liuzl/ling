@@ -23,7 +23,7 @@ func TestAll(t *testing.T) {
 		//English text
 		"zhanliangliu@gmail.com,      \t\t\t .@#$!@  zliu.org 123 is one two three",
 		",，.。有意思quanjian１２３",
-		"，。！？【】（）％＃＠＆１２３４５６７８９０“”‘’''\"\"",
+		"，。！？【】（）％＃＠＆１２３４５６７８９０“”‘’''\"\"『』「」﹃﹄〔〕—-《》：、",
 		"123hj is goo. goog1e brightliang137",
 		"3.1415 -1.618 6.023e23 1e-13 1,234,234",
 	}

@@ -25,6 +25,11 @@ var replacer *strings.Replacer = strings.NewReplacer(
 	`”`, `"`,
 	`‘`, `'`,
 	`’`, `'`,
+	`—`, `-`,
+	`〔`, `{`,
+	`〕`, `}`,
+	`《`, `"`,
+	`》`, `"`,
 )
 
 type Normalizer struct {
