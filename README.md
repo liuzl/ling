@@ -14,3 +14,4 @@
   * [OpenCC](https://github.com/BYVoid/OpenCC)
   * [Chinese-Character Jian<=>Fan converting library in Go](https://github.com/go-cc/cc-jianfan)
   * [Traditional and Simplified Chinese Conversion in Go](https://github.com/siongui/gojianfan)
+  * [Han unification](https://en.wikipedia.org/wiki/Han_unification)
