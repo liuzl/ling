@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"compress/gzip"
 	"encoding/base64"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -12,6 +13,10 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+)
+
+var (
+	t = flag.String("t", "all", "unimorph, chinese, all")
 )
 
 func getInfo(lang string) (srcUrl, dstFile, varName string) {
@@ -66,8 +71,26 @@ func gen(lang string) {
 	//writeFile("src/github.com/liuzl/ling/resources/lemma/"+lang+".txt", body)
 }
 
+func chinese() {
+	srcUrl := `https://raw.githubusercontent.com/BYVoid/OpenCC/master/data/dictionary/TSCharacters.txt`
+	dstFile := `src/github.com/liuzl/ling/resources/lemma/chinese.go`
+	log.Println("Fetching " + srcUrl)
+	log.Println("Writing new " + dstFile)
+}
+
 func main() {
-	for _, lang := range langs {
-		gen(lang)
+	flag.Parse()
+	switch *t {
+	case "unimorph":
+		for _, lang := range langs {
+			gen(lang)
+		}
+	case "chinese":
+		chinese()
+	case "all":
+		for _, lang := range langs {
+			gen(lang)
+		}
+		chinese()
 	}
 }
