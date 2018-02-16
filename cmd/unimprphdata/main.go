@@ -92,5 +92,7 @@ func main() {
 			gen(lang)
 		}
 		chinese()
+	default:
+		flag.PrintDefaults()
 	}
 }
