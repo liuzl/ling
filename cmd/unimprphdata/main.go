@@ -52,15 +52,19 @@ func writeFile(filePath string, data []byte) {
 	}
 }
 
-func gen(lang string) {
-	srcUrl, dstFile, varName := getInfo(lang)
-	log.Println("Fetching " + srcUrl)
+func urlToContent(srcUrl string) string {
 	body := fetchURL(srcUrl)
 	var compressed bytes.Buffer
 	w := gzip.NewWriter(&compressed)
 	w.Write(body)
 	w.Close()
-	c := base64.StdEncoding.EncodeToString(compressed.Bytes())
+	return base64.StdEncoding.EncodeToString(compressed.Bytes())
+}
+
+func gen(lang string) {
+	srcUrl, dstFile, varName := getInfo(lang)
+	log.Println("Fetching " + srcUrl)
+	c := urlToContent(srcUrl)
 	output := bytes.Buffer{}
 	output.WriteString("package lemma\n\n")
 	output.WriteString(fmt.Sprintf("var %s string = %s\n", varName, strconv.Quote(c)))
@@ -72,10 +76,21 @@ func gen(lang string) {
 }
 
 func chinese() {
-	srcUrl := `https://raw.githubusercontent.com/BYVoid/OpenCC/master/data/dictionary/TSCharacters.txt`
+	srcUrl1 := `https://raw.githubusercontent.com/liuzl/gocc/master/dictionary/TSPhrases.txt`
+	srcUrl2 := `https://raw.githubusercontent.com/liuzl/gocc/master/dictionary/TSCharacters.txt`
 	dstFile := `src/github.com/liuzl/ling/resources/lemma/chinese.go`
-	log.Println("Fetching " + srcUrl)
+	log.Println("Fetching " + srcUrl1)
+	src1 := urlToContent(srcUrl1)
+	log.Println("Fetching " + srcUrl2)
+	src2 := urlToContent(srcUrl2)
+
+	output := bytes.Buffer{}
+	output.WriteString("package lemma\n\n")
+	output.WriteString(fmt.Sprintf("var cmnPhrases string = %s\n", strconv.Quote(src1)))
+	output.WriteString(fmt.Sprintf("var cmnCharacters string = %s\n", strconv.Quote(src2)))
+	output.WriteString(fmt.Sprintf("func init() {\n\tinitDict(&cmnPhrases, &cmnCharacters)\n}"))
 	log.Println("Writing new " + dstFile)
+	writeFile(dstFile, output.Bytes())
 }
 
 func main() {
