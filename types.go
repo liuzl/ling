@@ -12,18 +12,6 @@ type Document struct {
 	Langs  []string `json:"langs"`
 }
 
-func (self *Document) NormTokens() []string {
-	var ret []string
-	for _, token := range self.Tokens {
-		t, has := token.Annotations["norm"]
-		if !has {
-			t = token.Text
-		}
-		ret = append(ret, t)
-	}
-	return ret
-}
-
 type TokenType byte
 
 const (
