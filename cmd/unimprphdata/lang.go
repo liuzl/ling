@@ -1,7 +1,7 @@
 package main
 
 var langs []string = []string{
-	"sqi",
+	/*"sqi",
 	"ara",
 	"hye",
 	"eus",
@@ -11,9 +11,9 @@ var langs []string = []string{
 	"ckb",
 	"ces",
 	"dan",
-	"nld",
+	"nld",*/
 	"eng",
-	"est",
+	/*"est",
 	"fao",
 	//"fin",
 	"fra",
@@ -51,5 +51,5 @@ var langs []string = []string{
 	"tur",
 	"ukr",
 	"urd",
-	"cym",
+	"cym",*/
 }
