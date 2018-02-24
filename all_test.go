@@ -6,6 +6,9 @@ import (
 
 func TestAll(t *testing.T) {
 	cases := []string{
+		`乾隆爷的乾儿子是谁？`,
+		`支持中國大陸、臺灣、香港異體字和地區習慣用詞轉換，如「裏」「裡」、「鼠標」「滑鼠」。`,
+		`自然語言處理是人工智能領域中的一個重要方向。`,
 		//Chinese
 		"目前新车的轴距还没有公布，但是长度达到了4915mm，未来定位可能是一款中级轿车，而新车重量为1890kg。作为一款新能源车型，氢燃料的使用无疑让人惊喜，而本田公布它的最大续航为750km，可以说是非常能跑。",
 		//English
@@ -30,6 +33,7 @@ func TestAll(t *testing.T) {
 
 	tok := &Tokenizer{}
 	norm := &Normalizer{}
+	lemma := &Lemmatizer{}
 	for _, c := range cases {
 		//ret := Tokenize(c)
 		//t.Log(c)
@@ -42,6 +46,10 @@ func TestAll(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-		t.Logf("\n%s\n%s\n%s\n%+v\n\n", d.Lang, d, d.Norm(), d.Tokens)
+		err = lemma.Process(d)
+		if err != nil {
+			t.Error(err)
+		}
+		t.Logf("\n%s\n%s\n%s\n%+v\n\n", d.Langs, d, d.Norm(), d.Tokens)
 	}
 }

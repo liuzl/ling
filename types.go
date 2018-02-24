@@ -1,9 +1,7 @@
 package ling
 
 import (
-	"bytes"
 	"fmt"
-	"github.com/liuzl/franco"
 )
 
 type Document struct {
@@ -11,29 +9,19 @@ type Document struct {
 	Tokens []*Token `json:"tokens"`
 	Spans  []*Span  `json:"spans"`
 	Lang   string   `json:"lang"`
+	Langs  []string `json:"langs"`
 }
 
-func NewDocument(text string) *Document {
-	d := &Document{Text: text}
-	r := franco.Detect(text)
-	if len(r) > 0 {
-		if len(r) <= 10 || r[0].Code == "eng" || r[0].Code == "rus" {
-			d.Lang = r[0].Code
+func (self *Document) NormTokens() []string {
+	var ret []string
+	for _, token := range self.Tokens {
+		t, has := token.Annotations["norm"]
+		if !has {
+			t = token.Text
 		}
+		ret = append(ret, t)
 	}
-	return d
-}
-
-func (d *Document) String() string {
-	return d.Text
-}
-
-func (d *Document) Norm() string {
-	var buffer bytes.Buffer
-	for _, token := range d.Tokens {
-		buffer.WriteString(token.Annotations["norm"])
-	}
-	return buffer.String()
+	return ret
 }
 
 type TokenType byte
@@ -59,7 +47,8 @@ type Token struct {
 }
 
 func (t *Token) String() string {
-	return fmt.Sprintf("(%q/%v){%+v}[%d:%d]", t.Text, t.Type, t.Annotations, t.StartByte, t.EndByte)
+	return fmt.Sprintf("(%q/%v){%+v}[%d:%d]",
+		t.Text, t.Type, t.Annotations, t.StartByte, t.EndByte)
 }
 
 type Span struct {
