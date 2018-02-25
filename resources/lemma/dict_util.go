@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"github.com/golang/glog"
 	"github.com/liuzl/da"
-	"github.com/liuzl/segment"
+	"github.com/liuzl/tokenizer"
 	"strings"
 )
 
@@ -38,11 +38,7 @@ func initDict(contents ...*string) error {
 		if err != nil {
 			return nil, err
 		}
-		var ret []string
-		seg := segment.NewSegmenterDirect([]byte(out))
-		for seg.Segment() {
-			ret = append(ret, seg.Text())
-		}
+		ret := tokenizer.Tokenize(out)
 		if len(ret) == len(in) {
 			return ret, nil
 		} else {

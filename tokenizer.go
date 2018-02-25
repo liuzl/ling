@@ -2,19 +2,10 @@ package ling
 
 import (
 	"fmt"
-	"github.com/liuzl/segment"
+	"github.com/liuzl/tokenizer"
 	"strings"
 	"unicode"
 )
-
-func Tokenize(text string) []string {
-	var ret []string
-	seg := segment.NewSegmenterDirect([]byte(text))
-	for seg.Segment() {
-		ret = append(ret, seg.Text())
-	}
-	return ret
-}
 
 func Type(text string) TokenType {
 	switch {
@@ -43,7 +34,7 @@ func (self *Tokenizer) Process(d *Document) error {
 	}
 	var tokens []*Token
 	var pos int = 0
-	for i, word := range Tokenize(d.Text) {
+	for i, word := range tokenizer.Tokenize(d.Text) {
 		l := len([]byte(word))
 		token := &Token{Doc: d, Text: word, Type: Type(word),
 			I: i, StartByte: pos, EndByte: pos + l,
