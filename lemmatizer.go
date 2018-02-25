@@ -18,7 +18,7 @@ func (self *Lemmatizer) Process(d *Document) error {
 
 	for _, lang := range d.Langs {
 		if f, has := lemma.Funcs[lang]; has {
-			ret, err := f(d.NormTokens())
+			ret, err := f(d.XTokens("norm"))
 			if err != nil {
 				return err
 			}
