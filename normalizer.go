@@ -43,6 +43,9 @@ func (self *Normalizer) Process(d *Document) error {
 		return fmt.Errorf("tokenization required")
 	}
 	for _, token := range d.Tokens {
+		if _, has := token.Annotations["norm"]; has {
+			continue
+		}
 		res, _, err := transform.String(trans, token.Annotations["lowerd"])
 		if err != nil {
 			return err
