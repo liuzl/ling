@@ -47,5 +47,5 @@ type Span struct {
 }
 
 func (s *Span) String() string {
-	return fmt.Sprintf("{%+v} [%+v:%+v] %s", s.Annotations, s.Start, s.End, s.Doc.Tokens[s.Start:s.End])
+	return fmt.Sprintf("{%+v} %s", s.Annotations, s.Doc.Tokens[s.Start:s.End])
 }

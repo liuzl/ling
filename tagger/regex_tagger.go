@@ -15,7 +15,7 @@ func (t *RegexTagger) Process(d *ling.Document) error {
 	if len(d.Tokens) == 0 {
 		return fmt.Errorf("tokenization required")
 	}
-	for typ, re := range regexes {
+	for typ, re := range Regexes {
 		matches := re.FindAllStringIndex(d.Text, -1)
 		for _, match := range matches {
 			start := -1

@@ -7,7 +7,6 @@ import (
 )
 
 // https://github.com/mingrammer/commonregex
-
 // Regular expression patterns
 const (
 	DatePattern           = `(?i)(?:[0-3]?\d(?:st|nd|rd|th)?\s+(?:of\s+)?(?:jan\.?|january|feb\.?|february|mar\.?|march|apr\.?|april|may|jun\.?|june|jul\.?|july|aug\.?|august|sep\.?|september|oct\.?|october|nov\.?|november|dec\.?|december)|(?:jan\.?|january|feb\.?|february|mar\.?|march|apr\.?|april|may|jun\.?|june|jul\.?|july|aug\.?|august|sep\.?|september|oct\.?|october|nov\.?|november|dec\.?|december)\s+[0-3]?\d(?:st|nd|rd|th)?)(?:\,)?\s*(?:\d{4})?|[0-3]?\d[-\./][0-3]?\d[-\./]\d{2,4}`
@@ -37,67 +36,38 @@ const (
 	MACAddressPattern     = `(([a-fA-F0-9]{2}[:-]){5}([a-fA-F0-9]{2}))`
 	IBANPattern           = `[A-Z]{2}\d{2}[A-Z0-9]{4}\d{7}([A-Z\d]?){0,16}`
 	GitRepoPattern        = `((git|ssh|http(s)?)|(git@[\w\.]+))(:(\/\/)?)([\w\.@\:/\-~]+)(\.git)(\/)?`
+	NumericPattern        = `([+\-]?((\d{1,3}(,\d{3})+))|((?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?))`
 )
 
 // Compiled regular expressions
-var (
-	DateRegex           = regexp.MustCompile(DatePattern)
-	TimeRegex           = regexp.MustCompile(TimePattern)
-	PhoneRegex          = regexp.MustCompile(PhonePattern)
-	PhonesWithExtsRegex = regexp.MustCompile(PhonesWithExtsPattern)
-	UrlRegex            = xurls.Relaxed()
-	EmailRegex          = regexp.MustCompile(EmailPattern)
-	IPv4Regex           = regexp.MustCompile(IPv4Pattern)
-	IPv6Regex           = regexp.MustCompile(IPv6Pattern)
-	IPRegex             = regexp.MustCompile(IPPattern)
-	PriceRegex          = regexp.MustCompile(PricePattern)
-	HexColorRegex       = regexp.MustCompile(HexColorPattern)
-	CreditCardRegex     = regexp.MustCompile(CreditCardPattern)
-	BtcAddressRegex     = regexp.MustCompile(BtcAddressPattern)
-	StreetAddressRegex  = regexp.MustCompile(StreetAddressPattern)
-	ZipCodeRegex        = regexp.MustCompile(ZipCodePattern)
-	PoBoxRegex          = regexp.MustCompile(PoBoxPattern)
-	SSNRegex            = regexp.MustCompile(SSNPattern)
-	MD5HexRegex         = regexp.MustCompile(MD5HexPattern)
-	SHA1HexRegex        = regexp.MustCompile(SHA1HexPattern)
-	SHA256HexRegex      = regexp.MustCompile(SHA256HexPattern)
-	GUIDRegex           = regexp.MustCompile(GUIDPattern)
-	ISBN13Regex         = regexp.MustCompile(ISBN13Pattern)
-	ISBN10Regex         = regexp.MustCompile(ISBN10Pattern)
-	VISACreditCardRegex = regexp.MustCompile(VISACreditCardPattern)
-	MCCreditCardRegex   = regexp.MustCompile(MCCreditCardPattern)
-	MACAddressRegex     = regexp.MustCompile(MACAddressPattern)
-	IBANRegex           = regexp.MustCompile(IBANPattern)
-	GitRepoRegex        = regexp.MustCompile(GitRepoPattern)
-)
-
-var regexes = map[string]*regexp.Regexp{
-	"date":             DateRegex,
-	"time":             TimeRegex,
-	"phone":            PhoneRegex,
-	"phones_with_exts": PhonesWithExtsRegex,
-	"url":              UrlRegex,
-	"email":            EmailRegex,
-	"ipv4":             IPv4Regex,
-	"ipv6":             IPv6Regex,
-	"ip":               IPRegex,
-	"price":            PriceRegex,
-	"hex_color":        HexColorRegex,
-	"credit_card":      CreditCardRegex,
-	"btc_address":      BtcAddressRegex,
-	"street_address":   StreetAddressRegex,
-	"zip_code":         ZipCodeRegex,
-	"po_box":           PoBoxRegex,
-	"ssn":              SSNRegex,
-	"md5_hex":          MD5HexRegex,
-	"sha1_hex":         SHA1HexRegex,
-	"sha256_hex":       SHA256HexRegex,
-	"guid":             GUIDRegex,
-	"isbn13":           ISBN13Regex,
-	"isbn10":           ISBN10Regex,
-	"visa_credit_card": VISACreditCardRegex,
-	"mc_credit_card":   MCCreditCardRegex,
-	"mac_address":      MACAddressRegex,
-	"iban":             IBANRegex,
-	"git_repo":         GitRepoRegex,
+var Regexes = map[string]*regexp.Regexp{
+	"date":             regexp.MustCompile(DatePattern),
+	"time":             regexp.MustCompile(TimePattern),
+	"phone":            regexp.MustCompile(PhonePattern),
+	"phones_with_exts": regexp.MustCompile(PhonesWithExtsPattern),
+	"url":              xurls.Relaxed(),
+	"email":            regexp.MustCompile(EmailPattern),
+	"ipv4":             regexp.MustCompile(IPv4Pattern),
+	"ipv6":             regexp.MustCompile(IPv6Pattern),
+	"ip":               regexp.MustCompile(IPPattern),
+	"price":            regexp.MustCompile(PricePattern),
+	"hex_color":        regexp.MustCompile(HexColorPattern),
+	"credit_card":      regexp.MustCompile(CreditCardPattern),
+	"btc_address":      regexp.MustCompile(BtcAddressPattern),
+	"street_address":   regexp.MustCompile(StreetAddressPattern),
+	"zip_code":         regexp.MustCompile(ZipCodePattern),
+	"po_box":           regexp.MustCompile(PoBoxPattern),
+	"ssn":              regexp.MustCompile(SSNPattern),
+	"md5_hex":          regexp.MustCompile(MD5HexPattern),
+	"sha1_hex":         regexp.MustCompile(SHA1HexPattern),
+	"sha256_hex":       regexp.MustCompile(SHA256HexPattern),
+	"guid":             regexp.MustCompile(GUIDPattern),
+	"isbn13":           regexp.MustCompile(ISBN13Pattern),
+	"isbn10":           regexp.MustCompile(ISBN10Pattern),
+	"visa_credit_card": regexp.MustCompile(VISACreditCardPattern),
+	"mc_credit_card":   regexp.MustCompile(MCCreditCardPattern),
+	"mac_address":      regexp.MustCompile(MACAddressPattern),
+	"iban":             regexp.MustCompile(IBANPattern),
+	"git_repo":         regexp.MustCompile(GitRepoPattern),
+	"numeric":          regexp.MustCompile(NumericPattern),
 }

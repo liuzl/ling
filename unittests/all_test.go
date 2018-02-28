@@ -30,7 +30,7 @@ func TestAll(t *testing.T) {
 		",，.。有意思quanjian１２３",
 		"，。！？【】（）％＃＠＆１２３４５６７８９０“”‘’''\"\"『』「」﹃﹄〔〕—-《》：、",
 		"123hj is goo. goog1e brightliang137 liang@zliu.org",
-		"3.1415 -1.618 6.023e23 1e-13 1,234,234",
+		"1238 3.1415 -1.618 6.023e23 1e-13 1,234,234",
 	}
 
 	tok := &ling.Tokenizer{}
