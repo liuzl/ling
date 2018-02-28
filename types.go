@@ -45,3 +45,7 @@ type Span struct {
 	End         int               `json:"end"`
 	Annotations map[string]string `json:"annotations"`
 }
+
+func (s *Span) String() string {
+	return fmt.Sprintf("{%+v} [%+v:%+v] %s", s.Annotations, s.Start, s.End, s.Doc.Tokens[s.Start:s.End])
+}

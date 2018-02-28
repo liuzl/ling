@@ -1,6 +1,8 @@
-package ling
+package unittests
 
 import (
+	"github.com/liuzl/ling"
+	"github.com/liuzl/ling/tagger"
 	"testing"
 )
 
@@ -27,17 +29,18 @@ func TestAll(t *testing.T) {
 		"zhanliangliu@gmail.com,      \t\t\t .@#$!@  zliu.org 123 is one two three",
 		",，.。有意思quanjian１２３",
 		"，。！？【】（）％＃＠＆１２３４５６７８９０“”‘’''\"\"『』「」﹃﹄〔〕—-《》：、",
-		"123hj is goo. goog1e brightliang137",
+		"123hj is goo. goog1e brightliang137 liang@zliu.org",
 		"3.1415 -1.618 6.023e23 1e-13 1,234,234",
 	}
 
-	tok := &Tokenizer{}
-	norm := &Normalizer{}
-	lemma := &Lemmatizer{}
+	tok := &ling.Tokenizer{}
+	norm := &ling.Normalizer{}
+	lemma := &ling.Lemmatizer{}
+	tag := &tagger.RegexTagger{}
 	for _, c := range cases {
 		//ret := Tokenize(c)
 		//t.Log(c)
-		d := NewDocument(c)
+		d := ling.NewDocument(c)
 		err := tok.Process(d)
 		if err != nil {
 			t.Error(err)
@@ -50,6 +53,10 @@ func TestAll(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-		t.Logf("\n%s\n%s\n%s\n%+v\n\n", d.Langs, d, d.Norm(), d.Tokens)
+		err = tag.Process(d)
+		if err != nil {
+			t.Error(err)
+		}
+		t.Logf("\n%s\n%s\n%s\n%+v\n%+v\n\n", d.Langs, d, d.Norm(), d.Tokens, d.Spans)
 	}
 }
