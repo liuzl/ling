@@ -31,6 +31,7 @@ func TestAll(t *testing.T) {
 		"，。！？【】（）％＃＠＆１２３４５６７８９０“”‘’''\"\"『』「」﹃﹄〔〕—-《》：、",
 		"123hj is goo. goog1e brightliang137 liang@zliu.org",
 		"1238 3.1415 -1.618 6.023e23 1e-13 1,234,234",
+		`自建房2樓3室2廳1衛1廚92.00㎡戶型圖，92km到北京`,
 	}
 
 	tok := &ling.Tokenizer{}
@@ -57,6 +58,10 @@ func TestAll(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-		t.Logf("\n%s\n%s\n%s\n%+v\n%+v\n\n", d.Langs, d, d.Norm(), d.Tokens, d.Spans)
+		t.Logf("lang   :%s", d.Lang)
+		t.Logf("tokens :%s", d.Tokens)
+		t.Logf("lowered:%s", d.XTokens("lowered"))
+		t.Logf("norm   :%s", d.XTokens("norm"))
+		t.Logf("lemma  :%s", d.XTokens("lemma"))
 	}
 }

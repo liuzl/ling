@@ -1,7 +1,6 @@
 package ling
 
 import (
-	"bytes"
 	"github.com/liuzl/franco"
 )
 
@@ -23,20 +22,12 @@ func (d *Document) String() string {
 	return d.Text
 }
 
-func (d *Document) Norm() string {
-	var buffer bytes.Buffer
-	for _, token := range d.Tokens {
-		buffer.WriteString(token.Annotations["norm"])
-	}
-	return buffer.String()
-}
-
-func (self *Document) XTokens(anno string) []string {
+func (d *Document) XTokens(anno string) []string {
 	var ret []string
-	for _, token := range self.Tokens {
+	for _, token := range d.Tokens {
 		t, has := token.Annotations[anno]
 		if !has {
-			t = token.Text
+			t = token.Annotations["norm"]
 		}
 		ret = append(ret, t)
 	}

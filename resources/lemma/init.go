@@ -37,10 +37,8 @@ func genDict(lang, body string) error {
 			continue
 		}
 		items := strings.Fields(line)
-		if len(items) != 3 || items[0] == items[1] {
-			if len(items) != 3 {
-				//glog.Warningf("line:[%s] len(items)!=3", line)
-			}
+		if len(items) != 3 || items[0] == items[1] || len(items[1]) < 3 {
+			// some short words have problems
 			continue
 		}
 		m[items[1]] = items[0]

@@ -35,8 +35,7 @@ type Token struct {
 }
 
 func (t *Token) String() string {
-	return fmt.Sprintf("(%q/%v){%+v}[%d:%d]",
-		t.Text, t.Type, t.Annotations, t.StartByte, t.EndByte)
+	return t.Text
 }
 
 type Span struct {
@@ -47,5 +46,5 @@ type Span struct {
 }
 
 func (s *Span) String() string {
-	return fmt.Sprintf("{%+v} %s", s.Annotations, s.Doc.Tokens[s.Start:s.End])
+	return fmt.Sprintf("%s", s.Doc.Tokens[s.Start:s.End])
 }
