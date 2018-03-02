@@ -2,6 +2,7 @@ package ling
 
 import (
 	"fmt"
+	"github.com/liuzl/ling/util"
 	"github.com/liuzl/tokenizer"
 	"strings"
 	"unicode"
@@ -9,15 +10,15 @@ import (
 
 func Type(text string) TokenType {
 	switch {
-	case StringIs(text, unicode.IsSpace):
+	case util.StringIs(text, unicode.IsSpace):
 		return Space
-	case StringIs(text, unicode.IsSymbol):
+	case util.StringIs(text, unicode.IsSymbol):
 		return Symbol
-	case StringIs(text, unicode.IsNumber):
+	case util.StringIs(text, unicode.IsNumber):
 		return Number
-	case StringIs(text, unicode.IsPunct):
+	case util.StringIs(text, unicode.IsPunct):
 		return Punct
-	case StringIs(text, func(r rune) bool {
+	case util.StringIs(text, func(r rune) bool {
 		return unicode.Is(unicode.Scripts["Han"], r)
 	}):
 		return Han
