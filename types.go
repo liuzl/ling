@@ -1,7 +1,7 @@
 package ling
 
 import (
-	"fmt"
+	"bytes"
 )
 
 type Document struct {
@@ -46,5 +46,13 @@ type Span struct {
 }
 
 func (s *Span) String() string {
-	return fmt.Sprintf("%s", s.Doc.Tokens[s.Start:s.End])
+	output := bytes.Buffer{}
+	for i := s.Start; i < s.End; i++ {
+		output.WriteString(s.Doc.Tokens[i].String())
+	}
+	return output.String()
+}
+
+type Pipe interface {
+	Process(d *Document) error
 }
