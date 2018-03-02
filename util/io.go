@@ -1,6 +1,9 @@
 package util
 
 import (
+	"bytes"
+	"compress/gzip"
+	"encoding/base64"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -19,6 +22,15 @@ func FetchURL(url string) []byte {
 		log.Fatalf("Error reading body: %s", err)
 	}
 	return body
+}
+
+func UrlToZipContent(srcUrl string) string {
+	body := FetchURL(srcUrl)
+	var compressed bytes.Buffer
+	w := gzip.NewWriter(&compressed)
+	w.Write(body)
+	w.Close()
+	return base64.StdEncoding.EncodeToString(compressed.Bytes())
 }
 
 func WriteFile(filePath string, data []byte) {

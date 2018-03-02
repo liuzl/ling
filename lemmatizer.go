@@ -2,7 +2,7 @@ package ling
 
 import (
 	"fmt"
-	"github.com/liuzl/ling/resources/lemma"
+	"github.com/liuzl/ling/lemma"
 )
 
 const Lemma = "lemma"

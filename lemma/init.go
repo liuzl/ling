@@ -4,16 +4,13 @@ import (
 	"bytes"
 	"compress/gzip"
 	"encoding/base64"
-	"fmt"
 	"github.com/golang/glog"
+	"github.com/liuzl/ling/util"
 	"io/ioutil"
 	"strings"
 )
 
-type lemmaFunc func([]string) ([]string, error)
-
-var Funcs map[string]lemmaFunc = make(map[string]lemmaFunc)
-var Dict map[string]map[string]string = make(map[string]map[string]string)
+var Funcs = make(map[string]util.ConvertFunc)
 
 func genDict(lang, body string) error {
 	data, err := base64.StdEncoding.DecodeString(body)
@@ -43,24 +40,8 @@ func genDict(lang, body string) error {
 		}
 		m[items[1]] = items[0]
 	}
-	Dict[lang] = m
 	Funcs[lang] = func(in []string) ([]string, error) {
-		return dictMatch(in, m)
+		return util.DictConvert(in, m)
 	}
 	return nil
-}
-
-func dictMatch(in []string, m map[string]string) ([]string, error) {
-	if m == nil {
-		return nil, fmt.Errorf("lemma dict is nil")
-	}
-	var ret []string
-	for _, token := range in {
-		if str, has := m[token]; has {
-			ret = append(ret, str)
-		} else {
-			ret = append(ret, token)
-		}
-	}
-	return ret, nil
 }

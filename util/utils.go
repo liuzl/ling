@@ -1,6 +1,7 @@
 package util
 
 import (
+	"fmt"
 	"github.com/liuzl/da"
 	"strings"
 )
@@ -48,4 +49,19 @@ func Convert(in string, dicts []*da.Dict) (string, error) {
 		tokens = append(tokens, token)
 	}
 	return strings.Join(tokens, ""), nil
+}
+
+func DictConvert(in []string, m map[string]string) ([]string, error) {
+	if m == nil {
+		return nil, fmt.Errorf("lemma dict is nil")
+	}
+	var ret []string
+	for _, token := range in {
+		if str, has := m[token]; has {
+			ret = append(ret, str)
+		} else {
+			ret = append(ret, token)
+		}
+	}
+	return ret, nil
 }
