@@ -1,4 +1,4 @@
-package lemma
+package lemmatize
 
 import (
 	"bytes"

@@ -2,7 +2,7 @@ package ling
 
 import (
 	"fmt"
-	"github.com/liuzl/ling/lemma"
+	"github.com/liuzl/ling/lemmatize"
 )
 
 const Lemma = "lemma"
@@ -19,7 +19,7 @@ func (self *Lemmatizer) Process(d *Document) error {
 	}
 
 	for _, lang := range d.Langs {
-		if f, has := lemma.Funcs[lang]; has {
+		if f, has := lemmatize.Funcs[lang]; has {
 			ret, err := f(d.XTokens(Norm))
 			if err != nil {
 				return err
