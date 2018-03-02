@@ -58,10 +58,11 @@ func TestAll(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-		t.Logf("lang   :%s", d.Lang)
-		t.Logf("tokens :%s", d.Tokens)
-		t.Logf("lowered:%s", d.XTokens("lowered"))
-		t.Logf("norm   :%s", d.XTokens("norm"))
-		t.Logf("lemma  :%s", d.XTokens("lemma"))
+		t.Logf("lang  :%s", d.Lang)
+		t.Logf("langs :%s", d.Langs)
+		t.Logf("tokens:%s", d.Tokens)
+		t.Logf("lower :%s", d.XTokens(ling.Lower))
+		t.Logf("norm  :%s", d.XTokens(ling.Norm))
+		t.Logf("lemma :%s", d.XTokens(ling.Lemma))
 	}
 }

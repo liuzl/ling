@@ -8,6 +8,8 @@ import (
 	"unicode"
 )
 
+const Lower = "lower"
+
 func Type(text string) TokenType {
 	switch {
 	case util.StringIs(text, unicode.IsSpace):
@@ -40,9 +42,9 @@ func (self *Tokenizer) Process(d *Document) error {
 		l := len([]byte(word))
 		token := &Token{Doc: d, Text: word, Type: Type(word),
 			I: i, StartByte: pos, EndByte: pos + l,
-			Annotations: map[string]string{"lowerd": strings.ToLower(word)}}
+			Annotations: map[string]string{Lower: strings.ToLower(word)}}
 		if item.Norm != "" {
-			token.Annotations["norm"] = item.Norm
+			token.Annotations[Norm] = item.Norm
 		}
 		pos += l
 		tokens = append(tokens, token)

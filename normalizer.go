@@ -10,6 +10,8 @@ import (
 	"unicode"
 )
 
+const Norm = "norm"
+
 var trans = transform.Chain(
 	norm.NFD,
 	transform.RemoveFunc(func(r rune) bool {
@@ -29,8 +31,8 @@ var replacer = strings.NewReplacer(
 	`—`, `-`,
 	`〔`, `{`,
 	`〕`, `}`,
-	`《`, `"`,
-	`》`, `"`,
+	`《`, `<`,
+	`》`, `>`,
 )
 
 type Normalizer struct {
@@ -44,24 +46,24 @@ func (self *Normalizer) Process(d *Document) error {
 		return fmt.Errorf("tokenization required")
 	}
 	for _, token := range d.Tokens {
-		if _, has := token.Annotations["norm"]; has {
+		if _, has := token.Annotations[Norm]; has {
 			continue
 		}
-		res, _, err := transform.String(trans, token.Annotations["lowerd"])
+		res, _, err := transform.String(trans, token.Annotations[Lower])
 		if err != nil {
 			return err
 		}
 		// full to half
-		token.Annotations["norm"] = replacer.Replace(width.Narrow.String(res))
+		token.Annotations[Norm] = replacer.Replace(width.Narrow.String(res))
 	}
 	if f, has := normalize.Funcs[d.Lang]; has {
-		ret, err := f(d.XTokens("norm"))
+		ret, err := f(d.XTokens(Norm))
 		if err != nil {
 			return err
 		}
 		if len(ret) == len(d.Tokens) {
 			for i, str := range ret {
-				d.Tokens[i].Annotations["norm"] = str
+				d.Tokens[i].Annotations[Norm] = str
 			}
 		}
 	}

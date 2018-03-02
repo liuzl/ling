@@ -5,6 +5,8 @@ import (
 	"github.com/liuzl/ling/resources/lemma"
 )
 
+const Lemma = "lemma"
+
 type Lemmatizer struct {
 }
 
@@ -18,7 +20,7 @@ func (self *Lemmatizer) Process(d *Document) error {
 
 	for _, lang := range d.Langs {
 		if f, has := lemma.Funcs[lang]; has {
-			ret, err := f(d.XTokens("norm"))
+			ret, err := f(d.XTokens(Norm))
 			if err != nil {
 				return err
 			}
@@ -26,7 +28,7 @@ func (self *Lemmatizer) Process(d *Document) error {
 				continue
 			}
 			for i, str := range ret {
-				d.Tokens[i].Annotations["lemma"] = str
+				d.Tokens[i].Annotations[Lemma] = str
 			}
 		}
 	}
