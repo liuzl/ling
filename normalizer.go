@@ -12,6 +12,10 @@ import (
 
 const Norm = "norm"
 
+func init() {
+	Processors[Norm] = &Normalizer{}
+}
+
 var trans = transform.Chain(
 	norm.NFD,
 	transform.RemoveFunc(func(r rune) bool {

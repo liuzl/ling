@@ -10,6 +10,10 @@ import (
 
 const Lower = "lower"
 
+func init() {
+	Processors["_"] = &Tokenizer{}
+}
+
 func Type(text string) TokenType {
 	switch {
 	case util.StringIs(text, unicode.IsSpace):

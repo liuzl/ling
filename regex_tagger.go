@@ -1,14 +1,17 @@
-package tagger
+package ling
 
 import (
 	"fmt"
-	"github.com/liuzl/ling"
 )
+
+func init() {
+	Processors["regex"] = &RegexTagger{}
+}
 
 type RegexTagger struct {
 }
 
-func (t *RegexTagger) Process(d *ling.Document) error {
+func (t *RegexTagger) Process(d *Document) error {
 	if d == nil || len(d.Text) == 0 {
 		return fmt.Errorf("document is empty")
 	}
@@ -31,7 +34,7 @@ func (t *RegexTagger) Process(d *ling.Document) error {
 			if start == -1 || end == -1 {
 				continue
 			}
-			span := &ling.Span{Doc: d, Start: start, End: end,
+			span := &Span{Doc: d, Start: start, End: end,
 				Annotations: map[string]string{"type": typ}}
 			d.Spans = append(d.Spans, span)
 		}

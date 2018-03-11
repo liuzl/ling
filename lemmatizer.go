@@ -7,6 +7,10 @@ import (
 
 const Lemma = "lemma"
 
+func init() {
+	Processors[Lemma] = &Lemmatizer{}
+}
+
 type Lemmatizer struct {
 }
 

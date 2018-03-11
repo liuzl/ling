@@ -2,7 +2,6 @@ package unittests
 
 import (
 	"github.com/liuzl/ling"
-	"github.com/liuzl/ling/tagger"
 	"testing"
 )
 
@@ -34,27 +33,13 @@ func TestAll(t *testing.T) {
 		`自建房2樓3室2廳1衛1廚92.00㎡戶型圖，92km到北京`,
 	}
 
-	tok := &ling.Tokenizer{}
-	norm := &ling.Normalizer{}
-	lemma := &ling.Lemmatizer{}
-	tag := &tagger.RegexTagger{}
+	pipeline, err := ling.DefaultNLP()
+	if err != nil {
+		t.Error(err)
+	}
 	for _, c := range cases {
-		//ret := Tokenize(c)
-		//t.Log(c)
 		d := ling.NewDocument(c)
-		err := tok.Process(d)
-		if err != nil {
-			t.Error(err)
-		}
-		err = norm.Process(d)
-		if err != nil {
-			t.Error(err)
-		}
-		err = lemma.Process(d)
-		if err != nil {
-			t.Error(err)
-		}
-		err = tag.Process(d)
+		err = pipeline.Annotate(d)
 		if err != nil {
 			t.Error(err)
 		}

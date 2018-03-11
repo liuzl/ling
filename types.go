@@ -53,6 +53,8 @@ func (s *Span) String() string {
 	return output.String()
 }
 
-type Pipe interface {
+type Processor interface {
 	Process(d *Document) error
 }
+
+var Processors = make(map[string]Processor)

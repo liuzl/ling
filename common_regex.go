@@ -1,4 +1,4 @@
-package tagger
+package ling
 
 import (
 	"github.com/liuzl/xurls"
