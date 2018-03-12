@@ -34,3 +34,11 @@ func NLP(annotators ...string) (*Pipeline, error) {
 func DefaultNLP() (*Pipeline, error) {
 	return NLP("norm", "lemma", "regex")
 }
+
+func MustNLP(annotators ...string) *Pipeline {
+	p, err := NLP(annotators...)
+	if err != nil {
+		panic(err)
+	}
+	return p
+}
