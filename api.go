@@ -32,7 +32,7 @@ func NLP(annotators ...string) (*Pipeline, error) {
 }
 
 func DefaultNLP() (*Pipeline, error) {
-	return NLP("norm", "lemma", "regex")
+	return NLP("norm", "lemma", "unidecode", "regex")
 }
 
 func MustNLP(annotators ...string) *Pipeline {

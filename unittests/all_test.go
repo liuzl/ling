@@ -49,5 +49,6 @@ func TestAll(t *testing.T) {
 		t.Logf("lower :%s", d.XTokens(ling.Lower))
 		t.Logf("norm  :%s", d.XTokens(ling.Norm))
 		t.Logf("lemma :%s", d.XTokens(ling.Lemma))
+		t.Logf("unidecode :%s", d.XTokens(ling.Unidecode))
 	}
 }
