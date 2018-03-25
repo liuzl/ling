@@ -35,7 +35,7 @@ func Type(text string) TokenType {
 type Tokenizer struct {
 }
 
-func (self *Tokenizer) Process(d *Document) error {
+func (t *Tokenizer) Process(d *Document) error {
 	if d == nil || len(d.Text) == 0 {
 		return fmt.Errorf("document is empty")
 	}

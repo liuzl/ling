@@ -39,10 +39,12 @@ var replacer = strings.NewReplacer(
 	`》`, `>`,
 )
 
+// Normalizer is the processor for token normalization
 type Normalizer struct {
 }
 
-func (self *Normalizer) Process(d *Document) error {
+// Process normalizes the tokens of Document d
+func (n *Normalizer) Process(d *Document) error {
 	if d == nil || len(d.Text) == 0 {
 		return fmt.Errorf("document is empty")
 	}

@@ -31,6 +31,7 @@ func TestAll(t *testing.T) {
 		"123hj is goo. goog1e brightliang137 liang@zliu.org",
 		"1238 3.1415 -1.618 6.023e23 1e-13 1,234,234",
 		`自建房2樓3室2廳1衛1廚92.00㎡戶型圖，92km到北京`,
+		`one-hundred and twenty-five`,
 	}
 
 	pipeline, err := ling.DefaultNLP()

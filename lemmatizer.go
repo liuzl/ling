@@ -14,7 +14,7 @@ func init() {
 type Lemmatizer struct {
 }
 
-func (self *Lemmatizer) Process(d *Document) error {
+func (l *Lemmatizer) Process(d *Document) error {
 	if d == nil || len(d.Text) == 0 {
 		return fmt.Errorf("ducument is empty")
 	}

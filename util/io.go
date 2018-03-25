@@ -11,6 +11,7 @@ import (
 	"path/filepath"
 )
 
+// FetchURL gets the content of url
 func FetchURL(url string) []byte {
 	resp, err := http.Get(url)
 	if err != nil || resp.StatusCode != 200 {
@@ -24,6 +25,7 @@ func FetchURL(url string) []byte {
 	return body
 }
 
+// UrlToZipConent gets the content of srcUrl and returns the compressed content
 func UrlToZipContent(srcUrl string) string {
 	body := FetchURL(srcUrl)
 	var compressed bytes.Buffer
@@ -33,6 +35,7 @@ func UrlToZipContent(srcUrl string) string {
 	return base64.StdEncoding.EncodeToString(compressed.Bytes())
 }
 
+// WriteFile writes data to file at filePath
 func WriteFile(filePath string, data []byte) {
 	gopath, found := os.LookupEnv("GOPATH")
 	if !found {

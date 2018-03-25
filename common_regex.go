@@ -39,7 +39,7 @@ const (
 	NumericPattern        = `([+\-]?((\d{1,3}(,\d{3})+))|((?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?))`
 )
 
-// Compiled regular expressions
+// Regexes is the compiled regular expressions
 var Regexes = map[string]*regexp.Regexp{
 	"date":             regexp.MustCompile(DatePattern),
 	"time":             regexp.MustCompile(TimePattern),
