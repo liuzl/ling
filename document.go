@@ -47,3 +47,18 @@ func (d *Document) XTokens(anno string) []string {
 	}
 	return ret
 }
+
+func (d *Document) XRealTokens(anno string) []string {
+	var ret []string
+	for _, token := range d.Tokens {
+		if token.Type == Space {
+			continue
+		}
+		t, has := token.Annotations[anno]
+		if !has {
+			t = token.Annotations["norm"]
+		}
+		ret = append(ret, t)
+	}
+	return ret
+}
