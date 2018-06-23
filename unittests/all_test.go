@@ -32,6 +32,7 @@ func TestAll(t *testing.T) {
 		"1238 3.1415 -1.618 6.023e23 1e-13 1,234,234",
 		`自建房2樓3室2廳1衛1廚92.00㎡戶型圖，92km到北京`,
 		`one-hundred and twenty-five`,
+		`山西省煤炭地质１４８勘查院煤层气工程处`,
 	}
 
 	pipeline, err := ling.DefaultNLP()
