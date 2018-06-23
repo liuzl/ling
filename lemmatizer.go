@@ -2,6 +2,7 @@ package ling
 
 import (
 	"fmt"
+
 	"github.com/liuzl/ling/lemmatize"
 )
 
@@ -16,7 +17,7 @@ type Lemmatizer struct {
 
 func (l *Lemmatizer) Process(d *Document) error {
 	if d == nil || len(d.Text) == 0 {
-		return fmt.Errorf("ducument is empty")
+		return nil
 	}
 	if len(d.Tokens) == 0 {
 		return fmt.Errorf("tokenization required")

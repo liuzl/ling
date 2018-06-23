@@ -1,9 +1,10 @@
 package ling
 
 import (
-	"github.com/liuzl/xurls"
-	//"mvdan.cc/xurls"
 	"regexp"
+
+	//"mvdan.cc/xurls"
+	"github.com/liuzl/xurls"
 )
 
 // https://github.com/mingrammer/commonregex

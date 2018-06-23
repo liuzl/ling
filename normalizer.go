@@ -2,12 +2,13 @@ package ling
 
 import (
 	"fmt"
+	"strings"
+	"unicode"
+
 	"github.com/liuzl/ling/normalize"
 	"golang.org/x/text/transform"
 	"golang.org/x/text/unicode/norm"
 	"golang.org/x/text/width"
-	"strings"
-	"unicode"
 )
 
 const Norm = "norm"
@@ -46,7 +47,7 @@ type Normalizer struct {
 // Process normalizes the tokens of Document d
 func (n *Normalizer) Process(d *Document) error {
 	if d == nil || len(d.Text) == 0 {
-		return fmt.Errorf("document is empty")
+		return nil
 	}
 	if len(d.Tokens) == 0 {
 		return fmt.Errorf("tokenization required")

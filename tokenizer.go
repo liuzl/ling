@@ -1,11 +1,11 @@
 package ling
 
 import (
-	"fmt"
-	"github.com/liuzl/ling/util"
-	"github.com/liuzl/tokenizer"
 	"strings"
 	"unicode"
+
+	"github.com/liuzl/ling/util"
+	"github.com/liuzl/tokenizer"
 )
 
 const Lower = "lower"
@@ -37,7 +37,7 @@ type Tokenizer struct {
 
 func (t *Tokenizer) Process(d *Document) error {
 	if d == nil || len(d.Text) == 0 {
-		return fmt.Errorf("document is empty")
+		return nil
 	}
 	var tokens []*Token
 	var pos int = 0

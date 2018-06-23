@@ -2,6 +2,7 @@ package ling
 
 import (
 	"fmt"
+
 	"github.com/liuzl/unidecode"
 )
 
@@ -16,10 +17,10 @@ type Unidecoder struct {
 
 func (u *Unidecoder) Process(d *Document) error {
 	if d == nil || len(d.Text) == 0 {
-		return fmt.Errorf("ducument is empty")
+		return nil
 	}
 	if len(d.Tokens) == 0 {
-		return fmt.Errorf("tokenization required")
+		return fmt.Errorf("tokenization is required for unidecode")
 	}
 	for _, token := range d.Tokens {
 		var s string

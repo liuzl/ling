@@ -13,7 +13,7 @@ type RegexTagger struct {
 
 func (t *RegexTagger) Process(d *Document) error {
 	if d == nil || len(d.Text) == 0 {
-		return fmt.Errorf("document is empty")
+		return nil
 	}
 	if len(d.Tokens) == 0 {
 		return fmt.Errorf("tokenization required")
