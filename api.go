@@ -14,8 +14,7 @@ func (p *Pipeline) Annotate(d *Document) error {
 		return err
 	}
 	for _, anno := range p.Annotators {
-		err = Processors[anno].Process(d)
-		if err != nil {
+		if err = Processors[anno].Process(d); err != nil {
 			return err
 		}
 	}

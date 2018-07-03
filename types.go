@@ -39,10 +39,10 @@ func (t *Token) String() string {
 }
 
 type Span struct {
-	Doc         *Document         `json:"-"`
-	Start       int               `json:"start"`
-	End         int               `json:"end"`
-	Annotations map[string]string `json:"annotations"`
+	Doc         *Document              `json:"-"`
+	Start       int                    `json:"start"`
+	End         int                    `json:"end"`
+	Annotations map[string]interface{} `json:"annotations"`
 }
 
 func (s *Span) String() string {

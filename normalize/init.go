@@ -43,7 +43,8 @@ func genFuncs(lang string, contents ...*string) error {
 		if len(ret) == len(in) {
 			return ret, nil
 		}
-		return nil, fmt.Errorf("len(ret)!=len(in) of %s norm function", lang)
+		return nil, fmt.Errorf("len(ret):%d!=len(in):%d of %s norm function",
+			len(ret), len(in), lang)
 	}
 	return nil
 }

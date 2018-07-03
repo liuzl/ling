@@ -35,7 +35,8 @@ func (t *RegexTagger) Process(d *Document) error {
 				continue
 			}
 			span := &Span{Doc: d, Start: start, End: end,
-				Annotations: map[string]string{"type": typ}}
+				Annotations: map[string]interface{}{
+					"from": "regex", "type": typ}}
 			d.Spans = append(d.Spans, span)
 		}
 	}
