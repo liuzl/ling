@@ -27,14 +27,9 @@ func TestDictTagger(t *testing.T) {
 		if err = tagger.Process(d); err != nil {
 			t.Error(err)
 		}
-		t.Logf("lang  :%s", d.Lang)
-		t.Logf("langs :%s", d.Langs)
-		t.Logf("tokens:%s", d.Tokens)
 		t.Logf("spans:%s", d.Spans)
-		t.Logf("lower :%s", d.XTokens(ling.Lower))
-		t.Logf("norm  :%s", d.XTokens(ling.Norm))
-		t.Logf("lemma :%s", d.XTokens(ling.Lemma))
-		t.Logf("unidecode :%s", d.XTokens(ling.Unidecode))
-
+		for i, s := range d.Spans {
+			t.Logf("span %d %s: %+v", i, s, s.Annotations)
+		}
 	}
 }

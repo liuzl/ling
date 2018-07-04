@@ -32,9 +32,6 @@ func (t *DictTagger) Process(d *Document) error {
 		if err != nil {
 			return err
 		}
-		if len(ret) == 0 {
-			continue
-		}
 		for k, v := range ret {
 			start := -1
 			end := -1
