@@ -6,6 +6,16 @@ import (
 
 type Pipeline struct {
 	Annotators []string
+
+	taggers []Processor
+}
+
+func (p *Pipeline) AddTagger(t Processor) error {
+	if t == nil {
+		return fmt.Errorf("cannot add nil tagger!")
+	}
+	p.taggers = append(p.taggers, t)
+	return nil
 }
 
 func (p *Pipeline) Annotate(d *Document) error {
@@ -18,6 +28,12 @@ func (p *Pipeline) Annotate(d *Document) error {
 			return err
 		}
 	}
+
+	for _, tagger := range p.taggers {
+		if err = tagger.Process(d); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
@@ -27,7 +43,7 @@ func NLP(annotators ...string) (*Pipeline, error) {
 			return nil, fmt.Errorf("Processor %s doesn't exists", anno)
 		}
 	}
-	return &Pipeline{annotators}, nil
+	return &Pipeline{Annotators: annotators}, nil
 }
 
 func DefaultNLP() (*Pipeline, error) {

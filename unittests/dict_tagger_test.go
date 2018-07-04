@@ -19,12 +19,12 @@ func TestDictTagger(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+	if err = nlp.AddTagger(tagger); err != nil {
+		t.Error(err)
+	}
 	for _, c := range cases {
 		d := ling.NewDocument(c)
 		if err = nlp.Annotate(d); err != nil {
-			t.Error(err)
-		}
-		if err = tagger.Process(d); err != nil {
 			t.Error(err)
 		}
 		t.Logf("spans:%s", d.Spans)
