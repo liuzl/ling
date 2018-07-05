@@ -33,6 +33,9 @@ func (t *DictTagger) Process(d *Document) error {
 			return err
 		}
 		for k, v := range ret {
+			if len(v) < 1 {
+				continue
+			}
 			start := -1
 			end := -1
 			for _, token := range d.Tokens {
@@ -48,7 +51,7 @@ func (t *DictTagger) Process(d *Document) error {
 			}
 			span := &Span{Doc: d, Start: start, End: end,
 				Annotations: map[string]interface{}{
-					"from": "dict", "value": v}}
+					"from": "dict", "type": v[0], "value": v[1:]}}
 			d.Spans = append(d.Spans, span)
 		}
 	}
