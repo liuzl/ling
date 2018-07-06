@@ -8,14 +8,15 @@ import (
 
 func TestDictTagger(t *testing.T) {
 	cases := []string{
-		`一丝不挂的一分钟，是一前一后，有点意思吧`,
+		`天津大学离北京也不太远`,
+		`https://crawler.club是爬虫主页`,
 	}
 
 	nlp, err := ling.DefaultNLP()
 	if err != nil {
 		t.Error(err)
 	}
-	tagger, err := ling.NewDictTagger("cedar")
+	tagger, err := ling.NewDictTagger("dict")
 	if err != nil {
 		t.Error(err)
 	}
