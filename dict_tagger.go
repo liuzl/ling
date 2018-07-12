@@ -1,19 +1,28 @@
 package ling
 
 import (
+	"flag"
 	"fmt"
 
-	"github.com/liuzl/da"
+	"github.com/liuzl/d"
+)
+
+var (
+	dictDir = flag.String("dict_dir", "dict", "dictionary dir")
+	dictWeb = flag.Bool("dict_web", false, "dictionary web api flag")
 )
 
 type DictTagger struct {
-	dict *da.Dict
+	*d.Dictionary
 }
 
-func NewDictTagger(dir string) (*DictTagger, error) {
-	dict, err := da.Load(dir)
+func NewDictTagger() (*DictTagger, error) {
+	dict, err := d.Load(*dictDir)
 	if err != nil {
 		return nil, err
+	}
+	if *dictWeb {
+		dict.RegisterWeb()
 	}
 	return &DictTagger{dict}, nil
 }
@@ -28,7 +37,7 @@ func (t *DictTagger) Process(d *Document) error {
 	r := []rune(d.Text)
 	for i := 0; i < len(r); i++ {
 		startByte := len(string(r[:i]))
-		ret, err := t.dict.PrefixMatch(string(r[i:]))
+		ret, err := t.PrefixMatch(string(r[i:]))
 		if err != nil {
 			return err
 		}
@@ -50,8 +59,7 @@ func (t *DictTagger) Process(d *Document) error {
 				continue
 			}
 			span := &Span{Doc: d, Start: start, End: end,
-				Annotations: map[string]interface{}{
-					"from": "dict", "type": v[0], "value": v[1:]}}
+				Annotations: map[string]interface{}{"from": "dict", "value": v}}
 			d.Spans = append(d.Spans, span)
 		}
 	}

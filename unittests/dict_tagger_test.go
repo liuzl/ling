@@ -8,7 +8,7 @@ import (
 
 func TestDictTagger(t *testing.T) {
 	cases := []string{
-		`天津大学离北京也不太远`,
+		`天津大学离北京也不太远，电话是02227890949，主页是https://www.tju.edu.cn，计算机`,
 		`https://crawler.club是爬虫主页`,
 	}
 
@@ -16,7 +16,7 @@ func TestDictTagger(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	tagger, err := ling.NewDictTagger("dict")
+	tagger, err := ling.NewDictTagger()
 	if err != nil {
 		t.Error(err)
 	}
