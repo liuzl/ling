@@ -1,3 +1,0 @@
-北京	location	Beijing
-天津	location	Tianjin
-上海	location	Shanghai
