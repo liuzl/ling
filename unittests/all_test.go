@@ -1,8 +1,10 @@
 package unittests
 
 import (
-	"github.com/liuzl/ling"
+	"encoding/json"
 	"testing"
+
+	"github.com/liuzl/ling"
 )
 
 func TestAll(t *testing.T) {
@@ -52,5 +54,10 @@ func TestAll(t *testing.T) {
 		t.Logf("norm  :%s", d.XTokens(ling.Norm))
 		t.Logf("lemma :%s", d.XTokens(ling.Lemma))
 		t.Logf("unidecode :%s", d.XTokens(ling.Unidecode))
+		b, err := json.Marshal(d)
+		if err != nil {
+			t.Error(err)
+		}
+		t.Log(string(b))
 	}
 }

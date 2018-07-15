@@ -20,7 +20,6 @@ const (
 	Symbol
 	Number
 	Punct
-	Han
 	Word
 )
 
@@ -28,6 +27,7 @@ type Token struct {
 	Doc         *Document         `json:"-"`
 	Text        string            `json:"text"`
 	Type        TokenType         `json:"type"`
+	Script      string            `json:"script"`
 	I           int               `json:"i"`
 	StartByte   int               `json:"start_byte"`
 	EndByte     int               `json:"end_byte"`
