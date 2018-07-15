@@ -4,9 +4,9 @@ package ling
 
 import "strconv"
 
-const _TokenType_name = "EOFSpaceSymbolNumberPunctHanWord"
+const _TokenType_name = "EOFSpaceSymbolNumberPunctWord"
 
-var _TokenType_index = [...]uint8{0, 3, 8, 14, 20, 25, 28, 32}
+var _TokenType_index = [...]uint8{0, 3, 8, 14, 20, 25, 29}
 
 func (i TokenType) String() string {
 	if i >= TokenType(len(_TokenType_index)-1) {

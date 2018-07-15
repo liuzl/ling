@@ -24,12 +24,17 @@ func Type(text string) TokenType {
 		return Number
 	case util.StringIs(text, unicode.IsPunct):
 		return Punct
-	case util.StringIs(text, func(r rune) bool {
-		return unicode.Is(unicode.Scripts["Han"], r)
-	}):
-		return Han
 	}
 	return Word
+}
+
+func Script(text string) string {
+	for k, v := range unicode.Scripts {
+		if util.StringIs(text, func(r rune) bool { return unicode.Is(v, r) }) {
+			return k
+		}
+	}
+	return "Unknown"
 }
 
 type Tokenizer struct {
@@ -44,7 +49,7 @@ func (t *Tokenizer) Process(d *Document) error {
 	for i, item := range tokenizer.TokenizePro(d.Text) {
 		word := item.Text
 		l := len([]byte(word))
-		token := &Token{Doc: d, Text: word, Type: Type(word),
+		token := &Token{Doc: d, Text: word, Type: Type(word), Script: Script(word),
 			I: i, StartByte: pos, EndByte: pos + l,
 			Annotations: map[string]string{Lower: strings.ToLower(word)}}
 		if item.Norm != "" {
