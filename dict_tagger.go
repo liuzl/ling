@@ -8,8 +8,8 @@ import (
 )
 
 var (
-	dictDir = flag.String("dict_dir", "dict", "dictionary dir")
-	dictWeb = flag.Bool("dict_web", false, "dictionary web api flag")
+	dictName = flag.String("dict_name", "dict", "dictionary name")
+	dictWeb  = flag.Bool("dict_web", false, "dictionary web api flag")
 )
 
 type DictTagger struct {
@@ -17,7 +17,7 @@ type DictTagger struct {
 }
 
 func NewDictTagger() (*DictTagger, error) {
-	dict, err := d.Load(*dictDir)
+	dict, err := d.Load(*dictName)
 	if err != nil {
 		return nil, err
 	}
