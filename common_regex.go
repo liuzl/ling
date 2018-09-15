@@ -38,6 +38,7 @@ const (
 	IBANPattern           = `[A-Z]{2}\d{2}[A-Z0-9]{4}\d{7}([A-Z\d]?){0,16}`
 	GitRepoPattern        = `((git|ssh|http(s)?)|(git@[\w\.]+))(:(\/\/)?)([\w\.@\:/\-~]+)(\.git)(\/)?`
 	NumericPattern        = `([+\-]?((\d{1,3}(,\d{3})+))|((?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?))`
+	DigitsPattern         = `\d+`
 )
 
 // Regexes is the compiled regular expressions
@@ -72,4 +73,5 @@ var Regexes = map[string]*regexp.Regexp{
 	"iban":             regexp.MustCompile(IBANPattern),
 	"git_repo":         regexp.MustCompile(GitRepoPattern),
 	"numeric":          regexp.MustCompile(NumericPattern),
+	"digits":           regexp.MustCompile(DigitsPattern),
 }
