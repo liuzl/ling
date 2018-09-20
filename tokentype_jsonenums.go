@@ -9,21 +9,23 @@ import (
 
 var (
 	_TokenTypeNameToValue = map[string]TokenType{
-		"EOF":    EOF,
-		"Space":  Space,
-		"Symbol": Symbol,
-		"Number": Number,
-		"Punct":  Punct,
-		"Word":   Word,
+		"EOF":     EOF,
+		"Space":   Space,
+		"Symbol":  Symbol,
+		"Number":  Number,
+		"Letters": Letters,
+		"Punct":   Punct,
+		"Word":    Word,
 	}
 
 	_TokenTypeValueToName = map[TokenType]string{
-		EOF:    "EOF",
-		Space:  "Space",
-		Symbol: "Symbol",
-		Number: "Number",
-		Punct:  "Punct",
-		Word:   "Word",
+		EOF:     "EOF",
+		Space:   "Space",
+		Symbol:  "Symbol",
+		Number:  "Number",
+		Letters: "Letters",
+		Punct:   "Punct",
+		Word:    "Word",
 	}
 )
 
@@ -31,12 +33,13 @@ func init() {
 	var v TokenType
 	if _, ok := interface{}(v).(fmt.Stringer); ok {
 		_TokenTypeNameToValue = map[string]TokenType{
-			interface{}(EOF).(fmt.Stringer).String():    EOF,
-			interface{}(Space).(fmt.Stringer).String():  Space,
-			interface{}(Symbol).(fmt.Stringer).String(): Symbol,
-			interface{}(Number).(fmt.Stringer).String(): Number,
-			interface{}(Punct).(fmt.Stringer).String():  Punct,
-			interface{}(Word).(fmt.Stringer).String():   Word,
+			interface{}(EOF).(fmt.Stringer).String():     EOF,
+			interface{}(Space).(fmt.Stringer).String():   Space,
+			interface{}(Symbol).(fmt.Stringer).String():  Symbol,
+			interface{}(Number).(fmt.Stringer).String():  Number,
+			interface{}(Letters).(fmt.Stringer).String(): Letters,
+			interface{}(Punct).(fmt.Stringer).String():   Punct,
+			interface{}(Word).(fmt.Stringer).String():    Word,
 		}
 	}
 }
