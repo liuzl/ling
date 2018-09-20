@@ -14,11 +14,14 @@ type Document struct {
 
 type TokenType byte
 
+//go:generate jsonenums -type=TokenType
+//go:generate stringer -type=TokenType
 const (
 	EOF TokenType = iota
 	Space
 	Symbol
 	Number
+	Letters
 	Punct
 	Word
 )

@@ -24,6 +24,8 @@ func Type(text string) TokenType {
 		return Number
 	case util.StringIs(text, unicode.IsPunct):
 		return Punct
+	case util.StringIs(text, unicode.IsLetter):
+		return Letters
 	}
 	return Word
 }
