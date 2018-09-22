@@ -24,7 +24,13 @@ func Type(text string) TokenType {
 		return Number
 	case util.StringIs(text, unicode.IsPunct):
 		return Punct
-	case util.StringIs(text, unicode.IsLetter):
+	//case util.StringIs(text, unicode.IsLetter):
+	case util.StringIs(text, func(r rune) bool {
+		if (r < 'a' || r > 'z') && (r < 'A' || r > 'Z') {
+			return false
+		}
+		return true
+	}):
 		return Letters
 	}
 	return Word
