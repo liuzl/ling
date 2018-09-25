@@ -6,15 +6,18 @@ import (
 	"github.com/liuzl/ling/lemmatize"
 )
 
+// Lemma processor name
 const Lemma = "lemma"
 
 func init() {
 	Processors[Lemma] = &Lemmatizer{}
 }
 
+// Lemmatizer is the processor for lemmatization
 type Lemmatizer struct {
 }
 
+// Process is the function to annotate documents
 func (l *Lemmatizer) Process(d *Document) error {
 	if d == nil || len(d.Text) == 0 {
 		return nil
