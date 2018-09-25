@@ -53,7 +53,7 @@ func (t *Tokenizer) Process(d *Document) error {
 		return nil
 	}
 	var tokens []*Token
-	var pos int = 0
+	var pos int
 	for i, item := range tokenizer.TokenizePro(d.Text) {
 		word := item.Text
 		l := len([]byte(word))
