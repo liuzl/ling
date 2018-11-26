@@ -15,7 +15,8 @@ import (
 var (
 	input  = flag.String("input", "", "file of original text to read")
 	output = flag.String("output", "", "file of tokenized text to write")
-	typ    = flag.String("type", "token", "type: token, span")
+	typ    = flag.String("type", "token", "type: token, span, all")
+	full   = flag.Bool("full", false, "full output")
 )
 
 func main() {
@@ -58,19 +59,32 @@ func main() {
 		if err = nlp.Annotate(d); err != nil {
 			log.Fatal(err)
 		}
-		var ret []string
-		if *typ == "span" {
-			for _, s := range d.Spans {
-				ret = append(ret, s.String())
-			}
-		} else {
+		if *typ == "token" || *typ == "all" {
+			var ret []string
 			for _, t := range d.Tokens {
 				if t.Type == ling.Space {
 					continue
 				}
-				ret = append(ret, t.String())
+				if *full {
+					ret = append(ret, t.String()+"\t"+t.Type.String())
+				} else {
+					ret = append(ret, t.String())
+				}
 			}
+			fmt.Fprintf(out, "tokens:\n==========\n%s\n", strings.Join(ret, "\n"))
 		}
-		fmt.Fprintf(out, "%s\n", strings.Join(ret, " "))
+		if *typ == "span" || *typ == "all" {
+			var ret []string
+			for _, s := range d.Spans {
+				if *full {
+					ret = append(ret,
+						s.String()+"\t"+fmt.Sprintf("%+v", s.Annotations))
+				} else {
+					ret = append(ret, s.String())
+				}
+			}
+			fmt.Fprintf(out, "spans:\n==========\n%s\n", strings.Join(ret, "\n"))
+		}
+		fmt.Fprintf(out, "\n")
 	}
 }
