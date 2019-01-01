@@ -27,3 +27,12 @@
 * Regex tagger
   * [commonregex](https://github.com/mingrammer/commonregex), a collection of common regular expressions for Go.
   * [xurls](https://github.com/mvdan/xurls), a Go package of regex for urls.
+## Natural language Detection
+
+`getlang` is much slower than `franco`
+
+* [getlang](https://github.com/rylans/getlang)
+* [franco][https://github.com/liuzl/franco]
+* [test scripts](https://github.com/liuzl/org_name_parser/blob/master/parse/pprof.sh)
+  * franco: Duration: 5.12s, 26.93%
+  * getlang: Duration: 11.58s, 59.54%
