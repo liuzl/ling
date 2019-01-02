@@ -1,21 +1,7 @@
 package ling
 
-import (
-	"github.com/liuzl/franco"
-)
-
 func NewDocument(text string) *Document {
-	d := &Document{Text: text}
-	r := franco.Detect(text)
-	if len(r) > 0 {
-		if len(r) <= 10 || r[0].Code == "eng" || r[0].Code == "rus" {
-			d.Lang = r[0].Code
-		}
-		for _, lang := range r {
-			d.Langs = append(d.Langs, lang.Code)
-		}
-	}
-	return d
+	return &Document{Text: text}
 }
 
 func (d *Document) String() string {
