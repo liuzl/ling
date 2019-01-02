@@ -24,7 +24,13 @@ func Type(text string) TokenType {
 		return Number
 	case util.StringIs(text, unicode.IsPunct):
 		return Punct
-	case util.StringIs(text, unicode.IsLetter):
+	//case util.StringIs(text, unicode.IsLetter):
+	case util.StringIs(text, func(r rune) bool {
+		if (r < 'a' || r > 'z') && (r < 'A' || r > 'Z') {
+			return false
+		}
+		return true
+	}):
 		return Letters
 	}
 	return Word
@@ -47,7 +53,7 @@ func (t *Tokenizer) Process(d *Document) error {
 		return nil
 	}
 	var tokens []*Token
-	var pos int = 0
+	var pos int
 	for i, item := range tokenizer.TokenizePro(d.Text) {
 		word := item.Text
 		l := len([]byte(word))

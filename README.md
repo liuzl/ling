@@ -1,8 +1,8 @@
-
-
+# ling is a golang toolkit for natural language processing
+[![GoDoc](https://godoc.org/github.com/liuzl/ling?status.svg)](https://godoc.org/github.com/liuzl/ling)[![Go Report Card](https://goreportcard.com/badge/github.com/liuzl/ling)](https://goreportcard.com/report/github.com/liuzl/ling)
 
 # Implementation references
-## NLP tools
+## Similar NLP tools
 * [Stanford CoreNLP](https://stanfordnlp.github.io/CoreNLP/index.html) Java
 * [spaCy](https://spacy.io/) Python
 * [lingo](https://github.com/chewxy/lingo) Golang
@@ -27,3 +27,12 @@
 * Regex tagger
   * [commonregex](https://github.com/mingrammer/commonregex), a collection of common regular expressions for Go.
   * [xurls](https://github.com/mvdan/xurls), a Go package of regex for urls.
+## Natural language Detection
+
+`getlang` is much slower than `franco`
+
+* [getlang](https://github.com/rylans/getlang)
+* [franco][https://github.com/liuzl/franco]
+* [test scripts](https://github.com/liuzl/org_name_parser/blob/master/parse/pprof.sh)
+  * franco: Duration: 5.12s, 26.93%
+  * getlang: Duration: 11.58s, 59.54%

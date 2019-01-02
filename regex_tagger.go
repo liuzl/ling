@@ -8,9 +8,11 @@ func init() {
 	Processors["regex"] = &RegexTagger{}
 }
 
+// RegexTagger is the processor that uses regex expression
 type RegexTagger struct {
 }
 
+// Process is the function to annotate documents
 func (t *RegexTagger) Process(d *Document) error {
 	if d == nil || len(d.Text) == 0 {
 		return nil
