@@ -32,7 +32,7 @@
 `getlang` is much slower than `franco`
 
 * [getlang](https://github.com/rylans/getlang)
-* [franco][https://github.com/liuzl/franco]
+* [franco](https://github.com/liuzl/franco)
 * [test scripts](https://github.com/liuzl/org_name_parser/blob/master/parse/pprof.sh)
   * franco: Duration: 5.12s, 26.93%
   * getlang: Duration: 11.58s, 59.54%
