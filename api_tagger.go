@@ -72,7 +72,7 @@ func (t *ApiTagger) Process(d *Document) error {
 		span := &Span{Doc: d, Start: start, End: end,
 			Annotations: map[string]interface{}{
 				"from":  "api",
-				"value": map[string]interface{}{entity.Type: ""},
+				"value": map[string]interface{}{entity.Type: nil},
 			},
 		}
 		d.Spans = append(d.Spans, span)
