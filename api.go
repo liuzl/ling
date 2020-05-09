@@ -14,7 +14,7 @@ type Pipeline struct {
 // AddTagger adds a new processor t to Pipeline p
 func (p *Pipeline) AddTagger(t Processor) error {
 	if t == nil {
-		return fmt.Errorf("cannot add nil tagger!")
+		return fmt.Errorf("cannot add nil tagger")
 	}
 	p.taggers = append(p.taggers, t)
 	return nil
@@ -33,6 +33,30 @@ func (p *Pipeline) Annotate(d *Document) error {
 	}
 
 	for _, tagger := range p.taggers {
+		if err = tagger.Process(d); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// AnnotatePro tags the Document by each configured processors and taggers
+func (p *Pipeline) AnnotatePro(d *Document, taggers ...Processor) error {
+	err := Processors["_"].Process(d)
+	if err != nil {
+		return err
+	}
+	for _, anno := range p.Annotators {
+		if err = Processors[anno].Process(d); err != nil {
+			return err
+		}
+	}
+	for _, tagger := range p.taggers {
+		if err = tagger.Process(d); err != nil {
+			return err
+		}
+	}
+	for _, tagger := range taggers {
 		if err = tagger.Process(d); err != nil {
 			return err
 		}
