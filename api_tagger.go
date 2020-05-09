@@ -12,8 +12,8 @@ import (
 
 var strvalidator = strutils.NewStringValidator()
 
-// ApiTagger via http interface
-type ApiTagger struct {
+// APITagger via http interface
+type APITagger struct {
 	apiAddr string
 }
 
@@ -26,16 +26,16 @@ type Entity struct {
 	End   int         `json:"end"`
 }
 
-// NewApiTagger returns a new tagger
-func NewApiTagger(addr string) (*ApiTagger, error) {
+// NewAPITagger returns a new tagger
+func NewAPITagger(addr string) (*APITagger, error) {
 	if !strvalidator.IsValidURL(addr) {
 		return nil, fmt.Errorf("invalid url: %s", addr)
 	}
-	return &ApiTagger{apiAddr: addr}, nil
+	return &APITagger{apiAddr: addr}, nil
 }
 
 // Process the input document
-func (t *ApiTagger) Process(d *Document) error {
+func (t *APITagger) Process(d *Document) error {
 	if d == nil || len(d.Text) == 0 {
 		return nil
 	}
@@ -51,11 +51,11 @@ func (t *ApiTagger) Process(d *Document) error {
 	}
 	res := dl.Download(req)
 	if res.Error != nil {
-		return errors.Annotate(res.Error, "ApiTagger dl.Download")
+		return errors.Annotate(res.Error, "APITagger dl.Download")
 	}
 	var entities []Entity
 	if err := json.Unmarshal(res.Content, &entities); err != nil {
-		return errors.Annotate(err, "ApiTagger json.Unmarshal")
+		return errors.Annotate(err, "APITagger json.Unmarshal")
 	}
 	for _, entity := range entities {
 		if len(entity.Text) < 1 {
