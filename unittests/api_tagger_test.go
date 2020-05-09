@@ -7,7 +7,7 @@ import (
 	"github.com/liuzl/ling"
 )
 
-func TestApiTagger(t *testing.T) {
+func TestAPITagger(t *testing.T) {
 	cases := []string{
 		`天津大学离北京也不太远，电话是02227890949，主页是https://www.tju.edu.cn，计算机`,
 		`https://crawler.club是爬虫主页`,
@@ -18,7 +18,7 @@ func TestApiTagger(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	tagger, err := ling.NewApiTagger("http://127.0.0.1:5002/api")
+	tagger, err := ling.NewAPITagger("http://127.0.0.1:5002/api")
 	if err != nil {
 		t.Error(err)
 	}
