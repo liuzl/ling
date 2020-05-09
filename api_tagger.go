@@ -7,22 +7,26 @@ import (
 
 	"crawler.club/dl"
 	"github.com/juju/errors"
-	"github.com/torden/go-strutil"
+	strutils "github.com/torden/go-strutil"
 )
 
 var strvalidator = strutils.NewStringValidator()
 
+// ApiTagger via http interface
 type ApiTagger struct {
 	apiAddr string
 }
 
+// Entity stores the NER entity
 type Entity struct {
-	Text  string `json:"text"`
-	Type  string `json:"type"`
-	Start int    `json:"start"`
-	End   int    `json:"end"`
+	Text  string      `json:"text"`
+	Type  string      `json:"type"`
+	Value interface{} `json:"value"`
+	Start int         `json:"start"`
+	End   int         `json:"end"`
 }
 
+// NewApiTagger returns a new tagger
 func NewApiTagger(addr string) (*ApiTagger, error) {
 	if !strvalidator.IsValidURL(addr) {
 		return nil, fmt.Errorf("invalid url: %s", addr)
@@ -30,6 +34,7 @@ func NewApiTagger(addr string) (*ApiTagger, error) {
 	return &ApiTagger{apiAddr: addr}, nil
 }
 
+// Process the input document
 func (t *ApiTagger) Process(d *Document) error {
 	if d == nil || len(d.Text) == 0 {
 		return nil
@@ -72,7 +77,7 @@ func (t *ApiTagger) Process(d *Document) error {
 		span := &Span{Doc: d, Start: start, End: end,
 			Annotations: map[string]interface{}{
 				"from":  "api",
-				"value": map[string]interface{}{entity.Type: nil},
+				"value": map[string]interface{}{entity.Type: entity.Value},
 			},
 		}
 		d.Spans = append(d.Spans, span)
